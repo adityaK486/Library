@@ -6,6 +6,7 @@ const author     = document.getElementById("author");
 const pages      = document.getElementById("pages");
 const read       = document.getElementById("read");
 const content    = document.querySelector(".content");
+const cancelBtn  = document.getElementById('cancel');
 
 
 showButton.addEventListener('click',()=>{
@@ -16,11 +17,19 @@ showButton.addEventListener('click',()=>{
     read.checked = false;
 });
 
-confirmBtn.addEventListener("click",(event)=>{
-    event.preventDefault();
-    let obj = new Book(title.value,author.value,pages.value,read.checked);
-    addBookToLibrary(obj);
+cancelBtn.addEventListener('click',()=>{
     favDialog.close();
+})
+
+confirmBtn.addEventListener("click",(event)=>{
+    if(title.validity.valueMissing || author.validity.valueMissing || pages.validity.valueMissing ) {
+
+    }else {
+        event.preventDefault();
+        let obj = new Book(title.value,author.value,pages.value,read.checked);
+        addBookToLibrary(obj);
+        favDialog.close();
+    }
 });
 
 let myLibrary = [
